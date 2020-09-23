@@ -46,9 +46,6 @@ const updateUI = (data) => {
     //     timeSrc = 'img/night.svg';
     // };
 
-
-    
-
     // remove d-none 
     if (card.classList.contains('d-none')) {
         card.classList.remove('d-none');
@@ -74,9 +71,30 @@ cityForm.addEventListener('submit', e => {
     const city = cityForm.city.value.trim();
     cityForm.reset();
 
+
+
     // update UI with new city
     updateCity(city)
         .then(data => updateUI(data))
-        .catch(err=> console.log(err));
+        .catch(err => console.log(err));
+    
+    
+    // setlocal storage
+    // applying local storage
 
-})
+    localStorage.setItem('city', city);
+});
+
+
+
+
+// showing most recent searched city weather
+if (localStorage.getItem('city')) {
+    updateCity(localStorage.getItem('city'))
+        .then(data => updateUI(data))
+        .catch(err=> console.log(err));
+};
+
+
+
+
